@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Convert one GIF, or every GIF in a directory tree, to MP4.
 # Originals are kept. Existing MP4s are never overwritten; numbered names are used.
