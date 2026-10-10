@@ -24,11 +24,12 @@ link_into_place() {
 link_into_place "$repo_dir/convert-gifs-to-mp4.sh" "$script_link"
 link_into_place "$repo_dir/Convert GIF to MP4.workflow" "$workflow_link"
 
-zprofile="$HOME/.zprofile"
-path_line='export PATH="$HOME/bin:$PATH"'
-if ! [[ -f "$zprofile" ]] || ! grep -Fqx "$path_line" "$zprofile"; then
-  printf '\n# Added by gif-script setup\n%s\n' "$path_line" >> "$zprofile"
-fi
-
 printf 'Installed script and Finder Quick Action symlinks.\n'
-printf 'Added ~/bin to PATH in ~/.zprofile; restart Terminal or run: source ~/.zprofile\n'
+case ":$PATH:" in
+  *":$bin_dir:"*) ;;
+  *)
+    printf '\nWarning: ~/bin is not on your PATH. To run the script by name:\n'
+    printf '  zsh: add `export PATH="$HOME/bin:$PATH"` to ~/.zprofile, then run `source ~/.zprofile`\n'
+    printf '  fish: run `fish_add_path ~/bin`\n'
+    ;;
+esac
