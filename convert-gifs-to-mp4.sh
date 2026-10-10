@@ -23,6 +23,7 @@ convert_gif() {
 
   echo "Converting: $gif -> $output"
   # -i "$gif": read the source GIF.
+  # -movflags +faststart: put the MP4 index near the start for quicker network playback startup.
   # -vf scale=...: convert RGB to YCbCr with the BT.709 matrix and TV-range levels.
   # -colorspace bt709: label the output matrix coefficients as BT.709.
   # -color_range tv: label the output samples as limited (TV) range.
@@ -30,6 +31,7 @@ convert_gif() {
   #   These are H.264 color-description tags; transfer=... labels the samples, it does not transform them.
   # "$output": write the MP4 to this path.
   ffmpeg -i "$gif" \
+    -movflags +faststart \
     -vf 'scale=out_color_matrix=bt709:out_range=tv' \
     -colorspace bt709 \
     -color_range tv \
