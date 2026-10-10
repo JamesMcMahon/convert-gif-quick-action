@@ -19,17 +19,16 @@
 					<string>List</string>
 					<key>Types</key>
 					<array>
-						<string>com.apple.alias-file</string>
-						<string>public.folder</string>
+						<string>com.apple.cocoa.string</string>
 					</array>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>1.0.2</string>
-				<key>AMBundleIdentifier</key>
+				<string>2.0.3</string>
+				<key>BundleIdentifier</key>
 				<string>com.apple.RunShellScript</string>
-				<key>AMName</key>
+				<key>ActionName</key>
 				<string>Run Shell Script</string>
-				<key>AMParameters</key>
+				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
 					<string>export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
@@ -49,7 +48,7 @@
 	<key>workflowMetaData</key>
 	<dict>
 		<key>workflowTypeIdentifier</key>
-		<string>com.apple Automator.workflow.service</string>
+		<string>com.apple.Automator.servicesMenu</string>
 		<key>serviceApplicationBundleID</key>
 		<string>com.apple.finder</string>
 		<key>serviceInputTypeIdentifier</key>
@@ -61,7 +60,7 @@
 		<key>serviceProperties</key>
 		<dict>
 			<key>Context menu</key>
-			<false/>
+			<true/>
 			<key>ShowIn</key>
 			<array>
 				<string>com.apple.finder</string>
