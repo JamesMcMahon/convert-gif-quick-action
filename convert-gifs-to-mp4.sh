@@ -35,6 +35,7 @@ convert_gif() {
   echo "Converting: $gif -> $output"
   # FFmpeg's defaults balance quality, size, speed, and playback support, so where
   # possible we are using defaults.
+  # -nostdin: avoid some very strange behavior that happens when running this in a loop.
   # -i "$gif": read the source GIF.
   # -movflags +faststart: put the MP4 index near the start for quicker network playback startup.
   # -vf scale=...: convert RGB to YCbCr with the BT.709 matrix and TV-range levels.
