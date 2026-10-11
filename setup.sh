@@ -6,6 +6,7 @@ bin_dir="$HOME/bin"
 services_dir="$HOME/Library/Services"
 script_link="$bin_dir/convert-gifs-to-mp4.sh"
 workflow_link="$services_dir/Convert GIF to MP4.workflow"
+trash_workflow_link="$services_dir/Convert GIF to MP4 and Trash Original.workflow"
 
 mkdir -p "$bin_dir" "$services_dir"
 
@@ -23,6 +24,7 @@ link_into_place() {
 
 link_into_place "$repo_dir/convert-gifs-to-mp4.sh" "$script_link"
 link_into_place "$repo_dir/Convert GIF to MP4.workflow" "$workflow_link"
+link_into_place "$repo_dir/Convert GIF to MP4 and Trash Original.workflow" "$trash_workflow_link"
 
 printf 'Installed script and Finder Quick Action symlinks.\n'
 case ":$PATH:" in

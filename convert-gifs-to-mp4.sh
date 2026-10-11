@@ -6,7 +6,7 @@
 set -u
 
 usage() {
-  echo "Usage: $0 <gif-file-or-directory>" >&2
+  echo "Usage: $0 [--trash-originals] <gif-file-or-directory>" >&2
   exit 2
 }
 
@@ -51,6 +51,16 @@ convert_gif() {
     -color_range tv \
     -x264-params 'colorprim=bt709:transfer=iec61966-2-1:colormatrix=bt709:fullrange=off' \
     "$output"; then
+    if [ ! -f "$output" ]; then
+      echo "Error: conversion produced no output: $output" >&2
+      return 1
+    fi
+    if [ "$trash_originals" = true ]; then
+      if ! "${TRASH_COMMAND:-/usr/bin/trash}" "$gif"; then
+        echo "Error: could not move original to Trash: $gif" >&2
+        return 1
+      fi
+    fi
     return 0
   else
     local status=$?
@@ -59,6 +69,11 @@ convert_gif() {
   fi
 }
 
+trash_originals=false
+if [ "$#" -gt 0 ] && [ "$1" = "--trash-originals" ]; then
+  trash_originals=true
+  shift
+fi
 [ "$#" -eq 1 ] || usage
 input=$1
 
