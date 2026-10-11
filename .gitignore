@@ -1,2 +1,5 @@
 samples/
 
+# Automator generates these workflow preview thumbnails when saving.
+**/Contents/QuickLook/
+
