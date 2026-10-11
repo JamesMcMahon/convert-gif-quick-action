@@ -32,13 +32,19 @@ convert_gif() {
   # -x264-params: signal BT.709 primaries/matrix, sRGB transfer, and limited range in H.264.
   #   These are H.264 color-description tags; transfer=... labels the samples, it does not transform them.
   # "$output": write the MP4 to this path.
-  ffmpeg -i "$gif" \
+  if ffmpeg -i "$gif" \
     -movflags +faststart \
     -vf 'scale=out_color_matrix=bt709:out_range=tv' \
     -colorspace bt709 \
     -color_range tv \
     -x264-params 'colorprim=bt709:transfer=iec61966-2-1:colormatrix=bt709:fullrange=off' \
-    "$output"
+    "$output"; then
+    return 0
+  else
+    local status=$?
+    rm -f -- "$output"
+    return "$status"
+  fi
 }
 
 [ "$#" -eq 1 ] || usage
@@ -47,9 +53,11 @@ input=$1
 if [ -f "$input" ]; then
   convert_gif "$input"
 elif [ -d "$input" ]; then
+  status=0
   while IFS= read -r -d '' gif; do
-    convert_gif "$gif" || exit $?
+    convert_gif "$gif" || status=1
   done < <(find "$input" -type f -iname '*.gif' -print0)
+  exit "$status"
 else
   echo "Error: not a file or directory: $input" >&2
   exit 1
