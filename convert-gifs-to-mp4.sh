@@ -13,6 +13,17 @@ usage() {
 convert_gif() {
   local gif=$1
   local name=${gif%.*}
+  local frame_count
+
+  if ! frame_count=$(ffprobe -v error -select_streams v:0 -count_frames \
+    -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 "$gif"); then
+    echo "Error: could not probe GIF: $gif" >&2
+    return 1
+  fi
+  if [[ "$frame_count" =~ ^[0-9]+$ ]] && [ "$frame_count" -le 1 ]; then
+    echo "Skipping static GIF: $gif"
+    return 0
+  fi
   local output="$name.mp4"
   local number=1
 
