@@ -38,6 +38,8 @@
 					<key>shell</key>
 					<string>/bin/bash</string>
 				</dict>
+				<key>UUID</key>
+				<string>E624D4E7-FA19-462E-9E4E-D6171B896C79</string>
 			</dict>
 			<key>isEnabled</key>
 			<true/>
