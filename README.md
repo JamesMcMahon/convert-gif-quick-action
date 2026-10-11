@@ -1,6 +1,6 @@
 # Convert GIF to MP4
 
-Converts GIF files to MP4 with `ffmpeg`. Original GIFs are kept, and existing MP4 files are not overwritten.
+macOS Quick Action to Convert GIF files to MP4 with `ffmpeg`. Original GIFs are kept, and existing MP4 files are not overwritten.
 
 ## Install
 
