@@ -32,7 +32,7 @@ convert_gif() {
   # -x264-params: signal BT.709 primaries/matrix, sRGB transfer, and limited range in H.264.
   #   These are H.264 color-description tags; transfer=... labels the samples, it does not transform them.
   # "$output": write the MP4 to this path.
-  if ffmpeg -i "$gif" \
+  if ffmpeg -nostdin -i "$gif" \
     -movflags +faststart \
     -vf 'scale=out_color_matrix=bt709:out_range=tv' \
     -colorspace bt709 \
