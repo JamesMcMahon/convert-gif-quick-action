@@ -6,7 +6,7 @@
 set -u
 
 usage() {
-  echo "Usage: $0 [--trash-originals] <gif-file-or-directory>" >&2
+  echo "Usage: $0 [--trash-originals] <gif-file-or-directory> [...]" >&2
   exit 2
 }
 
@@ -74,18 +74,19 @@ if [ "$#" -gt 0 ] && [ "$1" = "--trash-originals" ]; then
   trash_originals=true
   shift
 fi
-[ "$#" -eq 1 ] || usage
-input=$1
+[ "$#" -gt 0 ] || usage
 
-if [ -f "$input" ]; then
-  convert_gif "$input"
-elif [ -d "$input" ]; then
-  status=0
-  while IFS= read -r -d '' gif; do
-    convert_gif "$gif" || status=1
-  done < <(find "$input" -type f -iname '*.gif' -print0)
-  exit "$status"
-else
-  echo "Error: not a file or directory: $input" >&2
-  exit 1
-fi
+status=0
+for input in "$@"; do
+  if [ -f "$input" ]; then
+    convert_gif "$input" || status=1
+  elif [ -d "$input" ]; then
+    while IFS= read -r -d '' gif; do
+      convert_gif "$gif" || status=1
+    done < <(find "$input" -type f -iname '*.gif' -print0)
+  else
+    echo "Error: not a file or directory: $input" >&2
+    status=1
+  fi
+done
+exit "$status"

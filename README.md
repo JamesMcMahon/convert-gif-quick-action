@@ -18,4 +18,4 @@ Keep the repo in place after setup: both symlinks point back to files in the clo
 
 ## Use
 
-In Finder, right-click a GIF or folder and select **Quick Actions → Convert GIF to MP4** to keep originals, or **Convert GIF to MP4 and Trash Original** to move successfully converted GIFs to the Trash. Folders are searched recursively. Failed conversions and skipped static GIFs are left alone.
+In Finder, select one or more GIFs and/or folders, then choose **Quick Actions → Convert GIF to MP4** to keep originals, or **Convert GIF to MP4 and Trash Original** to move successfully converted GIFs to the Trash. Each selected GIF is converted to its own MP4 beside the source. Selected folders are searched recursively. Failed conversions and skipped static GIFs are left alone.
